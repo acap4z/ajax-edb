@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<script src="jquery-3.1.1.min.js"></script>
+		<script src="js/jquery-3.1.1.min.js"></script>
 		<script>
 		    $( document ).ready(function() {
 				console.log( "document loaded" );
@@ -11,7 +11,7 @@
 					zipcode: 97201
 				  },*/
 				  success: function( result ) {
-					$( "content" ).html(result);
+					$( ".content" ).html(result);
 				  }
 				});
 			});
