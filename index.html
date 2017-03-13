@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script>
+		    $( document ).ready(function() {
+				console.log( "document loaded" );
+				
+				$.ajax({
+				  url: "https://github.com/offensive-security/exploit-database/raw/master/files.csv",
+				  /*data: {
+					zipcode: 97201
+				  },*/
+				  success: function( result ) {
+					$( "content" ).html(result);
+				  }
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<h1>AJAX Exploit-DB</h1>
+		<div id="wrapper">
+		<button id="loadData" name="loadData">Load Data</button>
+		<div id="content">
+		<p>No data has been loaded yet.</p>
+		</div>
+		</div>
+	</body>
+</html>
