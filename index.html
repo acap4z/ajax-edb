@@ -1,29 +1,76 @@
 <html>
 	<head>
+		<title>AJAX EDB</title>
 		<script src="js/jquery-3.1.1.min.js"></script>
+		<script src="js/jquery.csv.js"></script>
+		<script src="js/parser.js"></script>
+		<script src="js/search.js"></script>
 		<script>
-		    $( document ).ready(function() {
-				console.log( "document loaded" );
-				
-				$.ajax({
-				  url: "https://raw.githubusercontent.com/offensive-security/exploit-database/master/files.csv",
-				  /*data: {
-					zipcode: 97201
-				  },*/
-				  success: function( result ) {
-					$( ".content" ).html(result);
-				  }
+			var arrayData;
+			
+
+			
+			if(localStorage.arrayData == null){
+				$( document ).ready(function() {
+					console.log( "document loaded" );
+					
+					$.ajax({
+					  url: "https://raw.githubusercontent.com/offensive-security/exploit-database/master/files.csv",
+					  success: function( result ) {
+						$( "#status" ).html("<p> Data has been loaded sucessfully! </p>");
+						parse(result);
+					  }
+					});	
+					
+					bind_search();
+					
+					window.onpopstate = function(event) {
+						search(JSON.stringify(event.state));
+					};
+					
 				});
-			});
+			}else{
+				/* LocalStorage disabled for now. Some browsers cannot handle all the data.
+				
+				arrayData = JSON.parse(localStorage.arrayData);
+				console.log("Data loaded from local storage.");
+				loadParsedData();*/
+			}
+			
 		</script>
 	</head>
 	<body>
-		<h1>AJAX Exploit-DB</h1>
 		<div id="wrapper">
-		<button id="loadData" name="loadData">Load Data</button>
-		<div id="content">
-		<p>No data has been loaded yet.</p>
-		</div>
+			<h1>AJAX Exploit-DB</h1>
+			<div id="searchPanel">
+				<input id="searchTxt" type="text" />
+				<button id="searchBtn">Search</button>
+			</div>
+			<div id="panel">
+				<div id="status">
+					<p>No data has been loaded yet.</p>
+				</div>
+				<div id="remote">
+					<h2>Remote Exploits</h2>
+					<div id="remoteContent"></div>
+				</div>
+				<div id="webapps">
+					<h2>Web Application Exploits</h2>
+					<div id="webappsContent"></div>
+				</div>
+				<div id="local">
+					<h2>Local & Privilege Escalation Exploits</h2>
+					<div id="localContent"></div>
+				</div>
+				<div id="dos">
+					<h2>Denial of Service Exploits</h2>
+					<div id="dosContent"></div>
+				</div>
+				<div id="shellcode">
+					<h2>Exploit Shellcode Archive</h2>
+					<div id="shellcodeContent"></div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
