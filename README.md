@@ -24,13 +24,13 @@ Some shortcuts have been implemented in case you want to make a more detailed qu
 
 Examples:
 
-If you want to search an exploit for Apache which is compatible with the 'windows' platform, you can issue the following query:
+a. If you want to search an exploit for Apache which is compatible with the 'windows' platform, you can issue the following query:
 `platform:windows apache`
 
-If you are interested in all the exploits available for WordPress whose author is 'Metasploit', you can consult it with:
+b. If you are interested in all the exploits available for WordPress whose author is 'Metasploit', you can consult it with:
 `author:metasploit wordpress`
 
-If you want to gather all available PowerShell scripts in Exploit-DB, you can do it with the following query:
+c. If you want to gather all available PowerShell scripts in Exploit-DB, you can do it with the following query:
 `filetype:ps1`
 
 ### Operands
