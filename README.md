@@ -1,6 +1,4 @@
-# ajax-edb
-
-## Introduction
+# AJAX-EDB
 
 AJAX-EDB is an UNOFFICIAL client-side search tool based on HTML, JavaScript and AJAX, which uses the data available in the Official [Exploit-DB GitHub repository](https://github.com/offensive-security/exploit-database) to search, filter and find exploits in a similar way that you would do in the official [Exploit-DB Website](https://www.exploit-db.com/).
 
@@ -24,13 +22,13 @@ Some shortcuts have been implemented in case you want to make a more detailed qu
 
 Examples:
 
-a. If you want to search an exploit for Apache which is compatible with the 'windows' platform, you can issue the following query:
+1. If you want to search an exploit for Apache which is compatible with the 'windows' platform, you can issue the following query:
 `platform:windows apache`
 
-b. If you are interested in all the exploits available for WordPress whose author is 'Metasploit', you can consult it with:
+2. If you are interested in all the exploits available for WordPress whose author is 'Metasploit', you can consult it with:
 `author:metasploit wordpress`
 
-c. If you want to gather all available PowerShell scripts in Exploit-DB, you can do it with the following query:
+3. If you want to gather all available PowerShell scripts in Exploit-DB, you can do it with the following query:
 `filetype:ps1`
 
 ### Operands
