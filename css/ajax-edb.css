@@ -1,0 +1,55 @@
+/*!
+ * AJAX EDB v1.0 (https://albertov91.github.io/ajax-edb/)
+ * Licensed under MIT (https://github.com/albertov91/ajax-edb/blob/master/LICENSE)
+ */
+ 
+footer{
+    color: #999;
+    margin-top: 70px;
+    text-align: center;
+}
+
+a{
+	text-decoration:none;
+}
+
+#wrapper{
+	text-align:center;	
+}
+
+#central_section{
+	max-width:1200px;	
+	display:inline-block;
+}
+
+#searchBtn{
+	color: #fff;
+	border: medium none;
+	line-height: 2.7;
+}
+
+.aedb_section{
+	margin-top: 3em;
+}
+
+.aedb_searchbox{
+    background: #e1e1e1 none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    height: 2.8rem;
+    line-height: 2.8rem;	
+    border-radius: 0.3rem;
+    box-shadow: 0 0 0 2px transparent, 0 1px 0 rgba(0, 0, 0, 0.08) inset;
+    padding: 0 0.8rem;
+    transition: all 0.3s ease 0s;
+    width: 500px;
+	box-sizing: border-box;
+}
+
+.inline_block{
+	display:inline-block;
+}
+
+.author{
+	overflow: hidden;
+    white-space: nowrap;
+}

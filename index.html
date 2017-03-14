@@ -1,6 +1,19 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="author" content="Albertov91">		
+		
 		<title>AJAX EDB</title>
+		
+		<!-- Bootstrap core CSS -->
+		<link href="css/edb_embedded.css" rel="stylesheet">
+		<link href="css/exploit.css" rel="stylesheet">
+		<link href="css/ajax-edb.css" rel="stylesheet">
+
+	
+	
 		<script src="js/jquery-3.1.1.min.js"></script>
 		<script src="js/jquery.csv.js"></script>
 		<script src="js/parser.js"></script>
@@ -25,7 +38,12 @@
 					bind_search();
 					
 					window.onpopstate = function(event) {
-						search(JSON.stringify(event.state));
+						var query;
+						
+						query = JSON.stringify(event.state);
+						
+						if(event.state == null) loadParsedData();
+						else search(query);
 					};
 					
 				});
@@ -41,36 +59,57 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<h1>AJAX Exploit-DB</h1>
-			<div id="searchPanel">
-				<input id="searchTxt" type="text" />
-				<button id="searchBtn">Search</button>
-			</div>
-			<div id="panel">
-				<div id="status">
-					<p>No data has been loaded yet.</p>
+			<div id="central_section">
+				<h1>AJAX Exploit-DB</h1>
+				<div id="searchPanel" class="aedb_section">
+					<div class="inline_block">
+					<input id="searchTxt" class="aedb_searchbox" type="text" />
+					</div>
+					<div class="inline_block">
+					<button id="searchBtn">Search</button>
+					</div>
 				</div>
-				<div id="remote">
-					<h2>Remote Exploits</h2>
-					<div id="remoteContent"></div>
+				<div id="panel">
+					<div id="results" class="aedb_section">
+					</div>
+					<div id="status" class="aedb_section">
+						<p>Loading data...</p>
+					</div>
+					<div id="remote" class="aedb_section">
+						<h2 style="text-align: justify;">
+							<a href="#"> Remote Exploits </a>
+						</h2>
+						<div id="remoteContent"><img src="img/Loading_icon.gif"/></div>
+					</div>
+					<div id="webapps" class="aedb_section">
+						<h2 style="text-align: justify;">
+							<a href="#"> Web Application Exploits </a>
+						</h2>
+						<div id="webappsContent"><img src="img/Loading_icon.gif"/></div>
+					</div>
+					<div id="local" class="aedb_section">
+						<h2 style="text-align: justify;">
+							<a href="#"> Local & Privilege Escalation Exploits </a>
+						</h2>
+						<div id="localContent"><img src="img/Loading_icon.gif"/></div>
+					</div>
+					<div id="dos" class="aedb_section">
+						<h2 style="text-align: justify;">
+							<a href="#"> Denial of Service Exploits </a>
+						</h2>
+						<div id="dosContent"><img src="img/Loading_icon.gif"/></div>
+					</div>
+					<div id="shellcode" class="aedb_section">
+						<h2 style="text-align: justify;">
+							<a href="#"> Exploit Shellcode Archive</a>
+						</h2>
+						<div id="shellcodeContent"><img src="img/Loading_icon.gif"/></div>
+					</div>
 				</div>
-				<div id="webapps">
-					<h2>Web Application Exploits</h2>
-					<div id="webappsContent"></div>
-				</div>
-				<div id="local">
-					<h2>Local & Privilege Escalation Exploits</h2>
-					<div id="localContent"></div>
-				</div>
-				<div id="dos">
-					<h2>Denial of Service Exploits</h2>
-					<div id="dosContent"></div>
-				</div>
-				<div id="shellcode">
-					<h2>Exploit Shellcode Archive</h2>
-					<div id="shellcodeContent"></div>
-				</div>
-			</div>
-		</div>
+			</div> <!-- central section -->
+		</div> <!-- wrapper -->
 	</body>
+	<footer>
+		<p style="text-align: center;">AJAX-EDB is under MIT License (2017). Data and some styles are property of <a href="https://www.exploit-db.com/">Exploit Database.</a></p>
+	</footer>
 </html>
