@@ -16,7 +16,7 @@ function bind_search(){
 
 
 function search(pre_query){
-	var results = [];
+	var results;
 	var search_query;
 	if(pre_query == null){
 		search_query = $("#searchTxt").val();
@@ -27,6 +27,7 @@ function search(pre_query){
 	var keywords = search_query.split(" ");
 	console.log("Trying to search: "+search_query);	
 	
+	results = arrayData.slice();
 	// Search using AND operator for each keyword found.
 	for(i in keywords) {
 		var keyword = keywords[i].toLowerCase();
@@ -34,21 +35,21 @@ function search(pre_query){
 		if(keyword.indexOf("platform:") == 0){
 			//Label 'platform:'
 			var platform = keyword.split(":")[1];
-			results = $.grep(arrayData, function(row) {
+			results = $.grep(results, function(row) {
 				return (row[5].toLowerCase().indexOf(platform) >= 0);
 			});
 			console.log("Filtered by Platform");
 		}else if(keyword.indexOf("author:") == 0){
 			//Label 'author:'
 			var author = keyword.split(":")[1];
-			results = $.grep(arrayData, function(row) {
+			results = $.grep(results, function(row) {
 				return (row[4].toLowerCase().indexOf(author) >= 0);
 			});	
 			console.log("Filtered by Author");
 		}else if(keyword.indexOf("filetype:") == 0){
 			//Label 'filetype:'
 			var filetype = keyword.split(":")[1];
-			results = $.grep(arrayData, function(row) {
+			results = $.grep(results, function(row) {
 				return (row[1].toLowerCase().endsWith("."+filetype));
 			});	
 			console.log("Filtered by Filetype");			
@@ -60,7 +61,7 @@ function search(pre_query){
 				console.log("Negative keyword");
 			}
 			//Keywords
-			results = $.grep(arrayData, function(row) {
+			results = $.grep(results, function(row) {
 				return (row[2].toLowerCase().indexOf(keyword) >= 0);
 			}, invert);
 		}
