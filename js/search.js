@@ -16,7 +16,7 @@ function bind_search(){
 
 
 function search(pre_query){
-	var results;
+	var results = [];
 	var search_query;
 	if(pre_query == null){
 		search_query = $("#searchTxt").val();
@@ -25,9 +25,8 @@ function search(pre_query){
 		search_query = pre_query.replace(/"/g, "");
 	}
 	var keywords = search_query.split(" ");
-	console.log("Trying to search: "+search_query);
+	console.log("Trying to search: "+search_query);	
 	
-	results = arrayData.slice();
 	// Search using AND operator for each keyword found.
 	for(i in keywords) {
 		var keyword = keywords[i].toLowerCase();
@@ -35,37 +34,50 @@ function search(pre_query){
 		if(keyword.indexOf("platform:") == 0){
 			//Label 'platform:'
 			var platform = keyword.split(":")[1];
-			results = $.grep(results, function(row) {
+			results = $.grep(arrayData, function(row) {
 				return (row[5].toLowerCase().indexOf(platform) >= 0);
 			});
+			console.log("Filtered by Platform");
 		}else if(keyword.indexOf("author:") == 0){
 			//Label 'author:'
 			var author = keyword.split(":")[1];
-			results = $.grep(results, function(row) {
+			results = $.grep(arrayData, function(row) {
 				return (row[4].toLowerCase().indexOf(author) >= 0);
 			});	
+			console.log("Filtered by Author");
 		}else if(keyword.indexOf("filetype:") == 0){
 			//Label 'filetype:'
 			var filetype = keyword.split(":")[1];
-			results = $.grep(results, function(row) {
+			results = $.grep(arrayData, function(row) {
 				return (row[1].toLowerCase().endsWith("."+filetype));
-			});			
+			});	
+			console.log("Filtered by Filetype");			
 		}else{
 			var invert = false;
 			if(keyword.indexOf("-") == 0){
 				invert = true; //Exclude keyword.
 				keyword = keyword.substring(1);
+				console.log("Negative keyword");
 			}
 			//Keywords
-			results = $.grep(results, function(row) {
+			results = $.grep(arrayData, function(row) {
 				return (row[2].toLowerCase().indexOf(keyword) >= 0);
 			}, invert);
 		}
 	}
 	
-	var htmlData = generateTable(results.reverse());
+	// Results ordered by date since Exploit IDs and CSV order is not enough.
+	sortByDate(results);
+	
+	var htmlDataTable = generateTable(results.reverse());
 	// Fills the web content.
-	htmlData = '<h2 style="text-align: justify;"><a href="#"> Search Results for "' + $("<span>").text(search_query).html() + '" </a></h2>' + '<p style="text-align:justify;">' + results.length + ' results found</p>'  + htmlData;
+	var htmlData = '<h2 style="text-align: justify;"><a href="#"> Search Results for "' + $("<span>").text(search_query).html() + '" </a></h2>' + '<p style="text-align:justify;">' + results.length + ' results found'
+	if(results.length > MAX_ROWS){
+		htmlData += ' (only displaying ' + MAX_ROWS + ' results)</p>'  + htmlDataTable;
+	}else{
+		htmlData += '</p>'  + htmlDataTable;
+	}
+	
 	$('#results').html(htmlData);
 	$('#status').html("");
 	if (pre_query == null){

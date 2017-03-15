@@ -3,6 +3,8 @@
  * Licensed under MIT (https://github.com/albertov91/ajax-edb/blob/master/LICENSE)
  */
  
+var MAX_ROWS = 1000; //Maximum number of rows displayed in the results table.
+ 
 function parse(rawData){
 
 	arrayData = $.csv.toArrays(rawData);
@@ -27,6 +29,7 @@ function fillTopTables(categories){
 		var category = categories[categoryID];
 		var categoryData = filterByCategory(category);	
 		var topCategoryData = categoryData.slice(categoryData.length-7); //Only Top 7 are displayed.
+		sortByDate(topCategoryData);
 		var htmlData = generateTable(topCategoryData.reverse()); // Top table is sorted by Date before processing.
 		$('#'+category+'Content').html(htmlData);	
 	}
@@ -69,7 +72,10 @@ function generateTable(data) {
 	html += '</tr>\r\n';
 	html += '</thead>\r\n';
 	html += '<tbody>\r\n';
-	for(var row in data) {
+	
+	var totalRows = data.length;
+	if (totalRows > MAX_ROWS) totalRows = MAX_ROWS; // A max of 1000 results are displayed to avoid performance hangs.
+	for(var row = 0; row < totalRows; row++) {
 	  html += '<tr>\r\n';
 	  sorted_row[0] = data[row][3]; //Date
 	  sorted_row[1] = data[row][0]; //ID
@@ -110,4 +116,17 @@ function generateTable(data) {
   }
   
   return html;
+}
+
+// Sorts a 2D array by date. Date column number is fixed as 3.
+function sortByDate(data){
+	data.sort(function(a, b){
+		var parts = a[3].split('-');
+		var date_a = new Date(parts[0],parts[1]-1,parts[2]);
+		
+		parts = b[3].split('-');
+		var date_b = new Date(parts[0],parts[1]-1,parts[2]);
+
+		return date_a.getTime()-date_b.getTime();
+	});	
 }
