@@ -42,8 +42,12 @@
 						
 						query = JSON.stringify(event.state);
 						
-						if(event.state == null) loadParsedData();
-						else search(query);
+						if(event.state == null){
+							loadParsedData();
+							$("#landing_panel").show();
+						}else{
+							search(query);
+						} 
 					};
 					
 				});
@@ -72,40 +76,42 @@
 				<div id="panel">
 					<div id="results" class="aedb_section">
 					</div>
-					<div id="status" class="aedb_section">
-						<p>Loading data...</p>
-					</div>
-					<div id="remote" class="aedb_section">
-						<h2 style="text-align: justify;">
-							<a href="#"> Remote Exploits </a>
-						</h2>
-						<div id="remoteContent"><img src="img/Loading_icon.gif"/></div>
-					</div>
-					<div id="webapps" class="aedb_section">
-						<h2 style="text-align: justify;">
-							<a href="#"> Web Application Exploits </a>
-						</h2>
-						<div id="webappsContent"><img src="img/Loading_icon.gif"/></div>
-					</div>
-					<div id="local" class="aedb_section">
-						<h2 style="text-align: justify;">
-							<a href="#"> Local & Privilege Escalation Exploits </a>
-						</h2>
-						<div id="localContent"><img src="img/Loading_icon.gif"/></div>
-					</div>
-					<div id="dos" class="aedb_section">
-						<h2 style="text-align: justify;">
-							<a href="#"> Denial of Service Exploits </a>
-						</h2>
-						<div id="dosContent"><img src="img/Loading_icon.gif"/></div>
-					</div>
-					<div id="shellcode" class="aedb_section">
-						<h2 style="text-align: justify;">
-							<a href="#"> Exploit Shellcode Archive</a>
-						</h2>
-						<div id="shellcodeContent"><img src="img/Loading_icon.gif"/></div>
-					</div>
-				</div>
+					<div id="landing_panel">
+						<div id="status" class="aedb_section">
+							<p>Loading data...</p>
+						</div>
+						<div id="remote" class="aedb_section">
+							<h2 style="text-align: justify;">
+								<a href="#"> Remote Exploits </a>
+							</h2>
+							<div id="remoteContent"><img src="img/Loading_icon.gif"/></div>
+						</div>
+						<div id="webapps" class="aedb_section">
+							<h2 style="text-align: justify;">
+								<a href="#"> Web Application Exploits </a>
+							</h2>
+							<div id="webappsContent"><img src="img/Loading_icon.gif"/></div>
+						</div>
+						<div id="local" class="aedb_section">
+							<h2 style="text-align: justify;">
+								<a href="#"> Local & Privilege Escalation Exploits </a>
+							</h2>
+							<div id="localContent"><img src="img/Loading_icon.gif"/></div>
+						</div>
+						<div id="dos" class="aedb_section">
+							<h2 style="text-align: justify;">
+								<a href="#"> Denial of Service Exploits </a>
+							</h2>
+							<div id="dosContent"><img src="img/Loading_icon.gif"/></div>
+						</div>
+						<div id="shellcode" class="aedb_section">
+							<h2 style="text-align: justify;">
+								<a href="#"> Exploit Shellcode Archive</a>
+							</h2>
+							<div id="shellcodeContent"><img src="img/Loading_icon.gif"/></div>
+						</div>
+					</div> <!-- landing panel -->
+				</div> <!-- panel -->
 			</div> <!-- central section -->
 		</div> <!-- wrapper -->
 	</body>

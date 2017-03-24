@@ -27,9 +27,9 @@ function loadParsedData(){
 function fillTopTables(categories){
 	for(var categoryID in categories) {
 		var category = categories[categoryID];
-		var categoryData = filterByCategory(category);	
+		var categoryData = filterByCategory(category);
+		sortByDate(categoryData);		
 		var topCategoryData = categoryData.slice(categoryData.length-7); //Only Top 7 are displayed.
-		sortByDate(topCategoryData);
 		var htmlData = generateTable(topCategoryData.reverse()); // Top table is sorted by Date before processing.
 		$('#'+category+'Content').html(htmlData);	
 	}

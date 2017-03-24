@@ -81,6 +81,8 @@ function search(pre_query){
 	
 	$('#results').html(htmlData);
 	$('#status').html("");
+	$("#landing_panel").hide();
+	/* Case when Browser history forward / backward commands are issued. */ 
 	if (pre_query == null){
 		history.pushState(search_query, null);	
 	} 
