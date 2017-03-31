@@ -46,6 +46,13 @@ function search(pre_query){
 				return (row[4].toLowerCase().indexOf(author) >= 0);
 			});	
 			console.log("Filtered by Author");
+		}else if(keyword.indexOf("type:") == 0){
+			//Label 'author:'
+			var author = keyword.split(":")[1];
+			results = $.grep(results, function(row) {
+				return (row[6].toLowerCase().indexOf(author) >= 0);
+			});	
+			console.log("Filtered by Type");
 		}else if(keyword.indexOf("filetype:") == 0){
 			//Label 'filetype:'
 			var filetype = keyword.split(":")[1];

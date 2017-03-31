@@ -18,7 +18,7 @@ In short terms, you could consider this tool as an hybrid between the Exploit-DB
 
 ### Labels
 
-Some shortcuts have been implemented in case you want to make a more detailed query. One of these are **Labels**, which allow you to search by a given attribute with the _label:value_ syntax. Currently, supported labels are: _platform_, _author_, and _filetype_.
+Some shortcuts have been implemented in case you want to make a more detailed query. One of these are **Labels**, which allow you to search by a given attribute with the _label:value_ syntax. Currently, supported labels are: _platform_, _author_, _type_ and _filetype_.
 
 Examples:
 
@@ -28,7 +28,11 @@ Examples:
 2. If you are interested in all the exploits available for WordPress whose author is 'Metasploit', you can consult it with:
 `author:metasploit wordpress`
 
-3. If you want to gather all available PowerShell scripts in Exploit-DB, you can do it with the following query:
+3. If you are looking for remote execution exploits, you may want to add the following label to your query:
+`type:remote`
+*Available types are: dos, local, remote, shellcode, webapps
+
+4. If you want to gather all available PowerShell scripts in Exploit-DB, you can do it with the following query:
 `filetype:ps1`
 
 ### Operands
