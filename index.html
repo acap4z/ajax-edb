@@ -28,7 +28,7 @@
 					console.log( "document loaded" );
 					
 					$.ajax({
-					  url: "https://raw.githubusercontent.com/offensive-security/exploit-database/master/files.csv",
+					  url: "https://raw.githubusercontent.com/offensive-security/exploit-database/master/files_exploits.csv",
 					  success: function( result ) {
 						$( "#status" ).html("<p> Data has been loaded sucessfully! </p>");
 						parse(result);
