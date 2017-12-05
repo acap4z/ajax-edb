@@ -27,7 +27,19 @@ function search(pre_query){
 	var keywords = search_query.split(" ");
 	console.log("Trying to search: "+search_query);	
 	
-	results = arrayData.slice();
+	//Look for shellcodes if keyword "shellcode" is present, instead of exploits.
+	var shellcode_search = false;
+	for(i in keywords) {
+		var keyword = keywords[i].toLowerCase();
+		if(keyword.indexOf("shellcode") == 0){
+			shellcode_search = true;
+			console.log("Shellcode search activated. Exploits won't be shown");
+			break;
+		}
+	}
+	
+	if (shellcode_search) results = arrayShellcodes.slice();
+	else results = arrayData.slice();
 	// Search using AND operator for each keyword found.
 	for(i in keywords) {
 		var keyword = keywords[i].toLowerCase();
@@ -36,28 +48,28 @@ function search(pre_query){
 			//Label 'platform:'
 			var platform = keyword.split(":")[1];
 			results = $.grep(results, function(row) {
-				return (row[5].toLowerCase().indexOf(platform) >= 0);
+				return (row[COL_PLATFORM].toLowerCase().indexOf(platform) >= 0);
 			});
 			console.log("Filtered by Platform");
 		}else if(keyword.indexOf("author:") == 0){
 			//Label 'author:'
 			var author = keyword.split(":")[1];
 			results = $.grep(results, function(row) {
-				return (row[4].toLowerCase().indexOf(author) >= 0);
+				return (row[COL_AUTHOR].toLowerCase().indexOf(author) >= 0);
 			});	
 			console.log("Filtered by Author");
-		}else if(keyword.indexOf("type:") == 0){
+		}else if(keyword.indexOf("category:") == 0){
 			//Label 'author:'
 			var author = keyword.split(":")[1];
 			results = $.grep(results, function(row) {
-				return (row[6].toLowerCase().indexOf(author) >= 0);
+				return (row[COL_CATEGORY].toLowerCase().indexOf(author) >= 0);
 			});	
-			console.log("Filtered by Type");
+			console.log("Filtered by Category");
 		}else if(keyword.indexOf("filetype:") == 0){
 			//Label 'filetype:'
 			var filetype = keyword.split(":")[1];
 			results = $.grep(results, function(row) {
-				return (row[1].toLowerCase().endsWith("."+filetype));
+				return (row[COL_PATH].toLowerCase().endsWith("."+filetype));
 			});	
 			console.log("Filtered by Filetype");			
 		}else{
@@ -69,7 +81,7 @@ function search(pre_query){
 			}
 			//Keywords
 			results = $.grep(results, function(row) {
-				return (row[2].toLowerCase().indexOf(keyword) >= 0);
+				return (row[COL_TITLE].toLowerCase().indexOf(keyword) >= 0);
 			}, invert);
 		}
 	}

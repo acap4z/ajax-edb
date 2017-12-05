@@ -20,6 +20,7 @@
 		<script src="js/search.js"></script>
 		<script>
 			var arrayData;
+			var arrayShellcodes;
 			
 
 			
@@ -27,11 +28,21 @@
 				$( document ).ready(function() {
 					console.log( "document loaded" );
 					
+					// Load exploits.
 					$.ajax({
 					  url: "https://raw.githubusercontent.com/offensive-security/exploit-database/master/files_exploits.csv",
 					  success: function( result ) {
-						$( "#status" ).html("<p> Data has been loaded sucessfully! </p>");
-						parse(result);
+						$( "#status" ).html("<p> Exploits have been loaded sucessfully! </p>");
+						parseData(result, false);
+					  }
+					});	
+					
+					// Load shellcodes and parse both files.
+					$.ajax({
+					  url: "https://raw.githubusercontent.com/offensive-security/exploit-database/master/files_shellcodes.csv",
+					  success: function( result ) {
+						$( "#status" ).html("<p> Shellcodes been loaded sucessfully! </p>");
+						parseData(result, true);
 					  }
 					});	
 					

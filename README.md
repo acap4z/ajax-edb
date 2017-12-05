@@ -29,15 +29,18 @@ Examples:
 `author:metasploit wordpress`
 
 3. If you are looking for remote execution exploits, you may want to add the following label to your query:
-`type:remote`
-*Available types are: dos, local, remote, shellcode, webapps
+`category:remote`
+*Available categories are: dos, local, remote, shellcode, webapps
 
 4. If you want to gather all available PowerShell scripts in Exploit-DB, you can do it with the following query:
 `filetype:ps1`
 
 ### Operands
 
-Another kind of shortcut implemented in the tool are **Operands**. Currently, only the exclusion operand "-" is implemented. If you type the "-" character before any keyword, that keyword will be excluded from the search results.
+Another kind of shortcut implemented in the tool are **Operands**. These could help you to filter matching results.
+
+- Exclusion Operand: If you type the "-" character before any keyword, that keyword will be excluded from the search results.
+- Shellcode Operand: From 2017-11-28, the ExploitDB team splitted their single CSV file into two new files: one for exploits, and another for shellcodes. If you include the word "shellcode" in your search, the tool will switch from the default exploits list to the shellcode list automatically. This means no exploits will be shown.
 
 For example, if you want all exploits available for WordPress whose author is 'Metasploit', but you don't want to retrieve results for plugins, you can specify it as follows: 
 `author:metasploit wordpress -plugin`

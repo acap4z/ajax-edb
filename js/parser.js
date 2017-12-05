@@ -4,30 +4,47 @@
  */
  
 var MAX_ROWS = 1000; //Maximum number of rows displayed in the results table.
- 
-function parse(rawData){
 
-	arrayData = $.csv.toArrays(rawData);
-	arrayData.shift(); // Removes the header.
-	
-	// localStorage.setItem("arrayData",JSON.stringify(arrayData));
-	loadParsedData();
-	
+var COL_ID = 0;
+var COL_PATH = 1;
+var COL_TITLE = 2;
+var COL_DATE = 3;
+var COL_AUTHOR = 4;
+var COL_CATEGORY = 5;
+var COL_PLATFORM = 6;
+
+ 
+function parseData(rawData, isShellcode){
+
+	if(!isShellcode){
+		arrayData = $.csv.toArrays(rawData);
+		arrayData.shift(); // Removes the header.
+		
+		// localStorage.setItem("arrayData",JSON.stringify(arrayData));
+		loadParsedData(arrayData, isShellcode);
+	}else{
+		arrayShellcodes = $.csv.toArrays(rawData);
+		arrayShellcodes.shift(); // Removes the header.
+		
+		// localStorage.setItem("arrayData",JSON.stringify(arrayData));
+		loadParsedData(arrayShellcodes, isShellcode);		
+	}
 }
 
-
-function loadParsedData(){
-	var categories = ["remote","webapps","local","dos","shellcode"];
+function loadParsedData(data, isShellcode){
+	var categories = ["remote","webapps","local","dos"];
+	if (isShellcode) categories = ["shellcode"];
 	
 	$('#results').html("");
 	document.title = "AJAX EDB";	
-	fillTopTables(categories);
+	fillTopTables(data, categories);
 }
 
-function fillTopTables(categories){
+
+function fillTopTables(data, categories){
 	for(var categoryID in categories) {
 		var category = categories[categoryID];
-		var categoryData = filterByCategory(category);
+		var categoryData = filterByCategory(data, category);
 		sortByDate(categoryData);		
 		var topCategoryData = categoryData.slice(categoryData.length-7); //Only Top 7 are displayed.
 		var htmlData = generateTable(topCategoryData.reverse()); // Top table is sorted by Date before processing.
@@ -36,13 +53,13 @@ function fillTopTables(categories){
 }
 
 
-function filterByCategory(category){
+function filterByCategory(data, category){
 	var result = [];
 	
-	for(var row in arrayData) {
-		var row_category = arrayData[row][6];
+	for(var row in data) {
+		var row_category = data[row][COL_CATEGORY];
 		if(row_category === category){
-			result.push(arrayData[row]);
+			result.push(data[row]);
 		}
 	}
 	
@@ -77,11 +94,11 @@ function generateTable(data) {
 	if (totalRows > MAX_ROWS) totalRows = MAX_ROWS; // A max of 1000 results are displayed to avoid performance hangs.
 	for(var row = 0; row < totalRows; row++) {
 	  html += '<tr>\r\n';
-	  sorted_row[0] = data[row][3]; //Date
-	  sorted_row[1] = data[row][0]; //ID
-	  sorted_row[2] = data[row][2]; //Title
-	  sorted_row[3] = data[row][5]; //Platform
-	  sorted_row[4] = data[row][4]; //Author
+	  sorted_row[0] = data[row][COL_DATE]; //Date
+	  sorted_row[1] = data[row][COL_ID]; //ID
+	  sorted_row[2] = data[row][COL_TITLE]; //Title
+	  sorted_row[3] = data[row][COL_PLATFORM]; //Platform
+	  sorted_row[4] = data[row][COL_AUTHOR]; //Author
 	  for(var item in sorted_row) {
 		switch(parseInt(item)){
 			case 0:
