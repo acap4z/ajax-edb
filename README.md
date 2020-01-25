@@ -10,7 +10,7 @@ In short terms, you could consider this tool as an hybrid between the Exploit-DB
 
 ## How to use
 
-1. Go to https://arcocapaz.github.io/ajax-edb/
+1. Go to https://arcocap4z.github.io/ajax-edb/
 
 2. Wait for the tool to retrieve the data (it should take a few seconds only).
 
